@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://invidiousentertainment.com/sitemap.xml
