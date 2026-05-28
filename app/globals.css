@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* ============================================================
+   THEME TOKENS  (Tailwind v4 — change colors/fonts here)
+   These become utilities automatically, e.g. text-gold, bg-bg,
+   font-display, border-border.
+   ============================================================ */
+@theme {
+  --color-bg: #0a0a0c;        /* near-black cinematic background */
+  --color-bg-soft: #111114;   /* slightly lifted panel background */
+  --color-text: #f4f1ea;      /* off-white primary text */
+  --color-text-muted: #9a968d;/* muted grey secondary text */
+  --color-gold: #c8a45a;      /* primary gold accent */
+  --color-gold-soft: #e0c789; /* lighter gold for hovers */
+  --color-red: #7a1f22;       /* deep red secondary accent */
+  --color-border: rgba(200, 164, 90, 0.18); /* faint gold hairline */
+
+  /* Font variables are provided by next/font in layout.tsx */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Keyframe animations exposed as Tailwind animate-* utilities */
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  --animate-cue: cue 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #000;
+}
+
+/* ============================================================
+   CUSTOM PIECES that don't map cleanly to utilities
+   ============================================================ */
+
+/* Visually hidden, but readable by search engines & screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hero layered cinematic gradient background */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(122, 31, 34, 0.22), transparent 55%),
+    radial-gradient(90% 70% at 50% 100%, rgba(200, 164, 90, 0.1), transparent 60%),
+    linear-gradient(180deg, #0a0a0c 0%, #08080a 100%);
+  z-index: -2;
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: -1;
+}
+
+/* Coming Soon section background glow */
+.coming-bg {
+  background:
+    radial-gradient(80% 120% at 50% 0%, rgba(122, 31, 34, 0.18), transparent 60%),
+    var(--color-bg-soft);
+}
+
+/* Founder photo treatment */
+.founder-photo {
+  background:
+    linear-gradient(160deg, rgba(122, 31, 34, 0.25), rgba(10, 10, 12, 0.9)),
+    var(--color-bg);
+}
+.founder-photo img {
+  filter: grayscale(15%) contrast(1.05);
+}
+
+/* Keyframes */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+@keyframes cue {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* Scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
