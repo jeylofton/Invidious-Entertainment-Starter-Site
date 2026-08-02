@@ -5,7 +5,7 @@ import { Resend } from "resend";
    CONTACT FORM API  — POST /api/contact
    Sends form submissions to the inbox below via Resend.
    Requires RESEND_API_KEY in your environment (.env.local locally,
-   or the Vercel project settings in production).
+   or the Hostinger application settings in production).
    ============================================================ */
 
 const TO_EMAIL = "info@invidiousentertainment.com";

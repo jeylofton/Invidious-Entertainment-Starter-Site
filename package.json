@@ -6,10 +6,10 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "node server.js",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   },
   "dependencies": {
     "next": "16.2.12",
@@ -23,6 +23,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
     "postcss": "8.5.25",
     "tailwindcss": "latest",
     "typescript": "^5"
