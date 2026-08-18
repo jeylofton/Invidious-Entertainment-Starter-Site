@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Nav from "./components/Nav";
-import ScrollReveal from "./components/ScrollReveal";
+import Link from "next/link";
 import ContactForm from "./components/ContactForm";
+import { getAllPosts, formatDate } from "@/lib/posts";
 
 /* Structured data for search engines (Organization + founder + socials). */
 const jsonLd = {
@@ -36,15 +36,15 @@ const themes = [
 const comingTags = ["Films", "Original Stories", "Novels", "Creative Projects", "Collaborations"];
 
 export default function Home() {
+  const recentPosts = getAllPosts().slice(0, 3);
+
   return (
     <>
       <script
         type="application/ld+json"
+        // Safe: jsonLd is built in this file, never from user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <Nav />
-      <ScrollReveal />
 
       {/* ===================== HERO ===================== */}
       <header
@@ -109,6 +109,12 @@ export default function Home() {
               story by story, with no shortcuts and no compromise on the truth of
               the work.
             </p>
+            <Link
+              href="/about"
+              className="mt-[30px] inline-block border-b border-gold pb-1 text-[0.78rem] uppercase tracking-[0.2em] text-gold transition-opacity hover:opacity-70"
+            >
+              More about the company
+            </Link>
           </div>
 
           <div className="founder-photo reveal relative mx-auto flex aspect-[3/4] w-full max-w-[380px] items-end justify-center overflow-hidden rounded border border-border shadow-[0_30px_60px_rgba(0,0,0,0.5)] md:mx-0 md:max-w-none">
@@ -185,6 +191,53 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===================== WRITING ===================== */}
+      <section id="writing" className="relative border-t border-border bg-bg-soft py-[120px]">
+        <div className="reveal mx-auto max-w-[1100px] px-7">
+          <span className="mb-[18px] inline-block text-[0.72rem] font-medium uppercase tracking-[0.32em] text-gold">
+            Writing
+          </span>
+          <div className="mb-[30px] h-px w-16 bg-gold opacity-70" />
+          <h2 className="mb-[30px] max-w-[780px] font-display text-[clamp(2rem,4.5vw,3rem)] font-semibold leading-[1.15]">
+            Notes from <em className="italic text-gold">inside the work.</em>
+          </h2>
+
+          {recentPosts.length > 0 ? (
+            <>
+              <ul className="mt-[50px] grid gap-px border border-border bg-border">
+                {recentPosts.map((post) => (
+                  <li key={post.slug} className="bg-bg transition-colors hover:bg-bg-soft">
+                    <Link href={`/writing/${post.slug}`} className="block px-7 py-8">
+                      <span className="mb-3 block text-[0.7rem] uppercase tracking-[0.2em] text-gold">
+                        {formatDate(post.date)}
+                      </span>
+                      <h3 className="mb-[10px] font-display text-[1.4rem] text-text">
+                        {post.title}
+                      </h3>
+                      <p className="max-w-[680px] text-[0.95rem] text-text-muted">
+                        {post.description}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              <Link
+                href="/writing"
+                className="mt-[40px] inline-block border-b border-gold pb-1 text-[0.78rem] uppercase tracking-[0.2em] text-gold transition-opacity hover:opacity-70"
+              >
+                All writing
+              </Link>
+            </>
+          ) : (
+            <p className="max-w-[680px] text-[1.08rem] text-text">
+              Process notes, production diaries, and essays on the craft behind
+              the work — published here as the first projects take shape.
+            </p>
+          )}
+        </div>
+      </section>
+
       {/* ===================== CONTACT ===================== */}
       <section id="contact" className="relative py-[120px] text-center">
         <div className="reveal mx-auto flex max-w-[1100px] flex-col items-center px-7">
@@ -219,15 +272,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ===================== FOOTER ===================== */}
-      <footer className="border-t border-border px-7 py-10 text-center text-[0.78rem] tracking-[0.05em] text-text-muted">
-        <span className="mb-2 block font-display uppercase tracking-[0.16em] text-text">
-          Invidious<span className="text-gold">.</span> Entertainment
-        </span>
-        &copy; {new Date().getFullYear()} Invidious Entertainment. All rights reserved.
-        &nbsp;|&nbsp; Founded by Jey Lofton.
-      </footer>
     </>
   );
 }

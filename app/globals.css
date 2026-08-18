@@ -129,3 +129,125 @@ body {
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ============================================================
+   PROSE  — long-form reading style for the writing section and
+   the About / legal pages. Markdown renders into `.prose`, so
+   these are plain element selectors rather than utilities.
+   ============================================================ */
+.prose {
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+.prose > * + * {
+  margin-top: 1.5em;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 2.4em;
+  margin-bottom: -0.4em; /* the * + * rule adds the gap below */
+  color: var(--color-text);
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: -0.6em;
+  color: var(--color-gold-soft);
+}
+
+.prose p {
+  color: var(--color-text-muted);
+}
+
+/* The opening paragraph carries a touch more presence. */
+.prose > p:first-child {
+  font-size: 1.12rem;
+  color: var(--color-text);
+}
+
+.prose a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.2s ease;
+}
+.prose a:hover {
+  opacity: 0.7;
+}
+
+.prose strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+  color: var(--color-text-muted);
+}
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+
+.prose li + li {
+  margin-top: 0.6em;
+}
+
+.prose li::marker {
+  color: var(--color-gold);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--color-gold);
+  padding-left: 1.4em;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.prose code {
+  font-size: 0.9em;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 0.15em 0.4em;
+}
+
+.prose pre {
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1.2em;
+  overflow-x: auto;
+}
+.prose pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-top: 3em;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}

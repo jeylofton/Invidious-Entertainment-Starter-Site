@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import ScrollReveal from "./components/ScrollReveal";
 
 /* ============================================================
    FONTS  — cinematic display serif + clean sans body.
@@ -31,7 +34,11 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: TITLE,
+  title: {
+    default: TITLE,
+    // Child pages set just their own name; this appends the brand.
+    template: "%s — Invidious Entertainment",
+  },
   description: DESCRIPTION,
   authors: [{ name: "Jey Lofton" }],
   keywords: [
@@ -77,14 +84,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3652873567892523"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <ScrollReveal />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

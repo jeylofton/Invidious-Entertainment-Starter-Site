@@ -12,6 +12,7 @@
     "node": ">=20.9.0"
   },
   "dependencies": {
+    "marked": "^18.0.10",
     "next": "16.2.12",
     "react": "latest",
     "react-dom": "latest",
