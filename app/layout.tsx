@@ -8,7 +8,7 @@ import ScrollReveal from "./components/ScrollReveal";
 /* ============================================================
   FONTS  — cinematic display serif + clean sans body.
   Exposed as CSS variables consumed by globals.css / Tailwind.
-   ============================================================ */
+  ============================================================ */
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
